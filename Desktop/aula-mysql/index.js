@@ -36,16 +36,33 @@ function execQuery(query, res){
 
 //Rotas Users
 router.get('/users', (req, res) => {
+    let filter = '';
+    if(req.params.id) filter = ' WHERE id =' + parseInt(req.params.id);
     execQuery('SELECT * FROM Users;', res);
 });
 
-/*
+router.get('/users/:id?', (req, res) => {
+    let filter = '';
+    if(req.params.id) filter = 'WHERE id = ' + parseInt(req.params.id);
+    execQuery('SELECT * FROM Users' + filter, res);
+});
+
+router.delete('/users/:id', (req, res) => {
+    execQuery('DELETE FROM Users WHERE id=' +parseInt(req.params.id), res);
+});
+
 router.post('/users', (req, res) => {
     const nome = req.body.nome.substring(0, 200);
     const email = req.body.email.substring(0, 100);
     execQuery(`INSERT INTO Users (nome, email) VALUES ('${nome})', '${email}');`, res);
-}
-*/
+});
+
+router.patch('/user/:id', (req, res) => {
+    const nome = req.body.nome.substring(0, 200);
+    const email = req.body.email.substring(0, 100);
+    execQuery(`UPDATE Users SET nome='${nome}', email='${email}' WHERE id='${req.params.id}';`, res);
+});
+
 //Iniciando o servidor
 app.listen(port);
 console.log('API rodando');
