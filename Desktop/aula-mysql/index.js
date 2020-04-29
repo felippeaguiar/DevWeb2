@@ -57,7 +57,8 @@ router.post('/users', (req, res) => {
     const phone = req.body.phone.substring(0, 100);
     const altura = req.body.altura.substring(0, 100);
     const peso = req.body.peso.substring(0, 100);
-    execQuery(`INSERT INTO Users (nome, email, phone, altura, peso) VALUES ('${nome}', '${email}', '${phone}', '${altura}', '${peso}');`, res);
+    const saude = req.body.saude.substring(0, 100);
+    execQuery(`INSERT INTO Users (nome, email, phone, altura, peso) VALUES ('${nome}', '${email}', '${phone}', '${altura}', '${peso}', '${saude}');`, res);
 });
 
 router.patch('/user/:id', (req, res) => {
@@ -66,7 +67,8 @@ router.patch('/user/:id', (req, res) => {
     const phone = req.body.phone.substring(0, 100);
     const altura = req.body.altura.substring(0, 100);
     const peso = req.body.peso.substring(0, 100);
-    execQuery(`UPDATE Users SET nome='${nome}', email='${email}', phone='${phone}', altura='${altura}', peso='${peso}', WHERE id='${req.params.id}';`, res);
+    const saude = req.body.saude.substring(0, 100);
+    execQuery(`UPDATE Users SET nome='${nome}', email='${email}', phone='${phone}', altura='${altura}', peso='${peso}', saude='${saude}, WHERE id='${req.params.id}';`, res);
 });
 
 //Iniciando o servidor

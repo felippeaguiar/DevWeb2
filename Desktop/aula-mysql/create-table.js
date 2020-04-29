@@ -24,6 +24,7 @@ function createTableUsers(conn){
                     phone VARCHAR(100) NOT NULL,
                     altura VARCHAR(100) NOT NULL,
                     peso VARCHAR(100) NOT NULL,
+                    saude VARCHAR(100) NOT NULL,
                     PRIMARY KEY (id)
                     );`
     conn.query(sql, function(error, results, fields){
@@ -33,14 +34,16 @@ function createTableUsers(conn){
 };
 
 function populateUsers(conn){
-    const sql = `INSERT INTO  Users(nome, email, phone, altura, peso) VALUES ?`;
+    const sql = `INSERT INTO  Users(nome, email, phone, altura, peso, saude) VALUES ?`;
+
+    const saude = ["saudavel", "doente", "terminal"];
 
     let values = [];
 
     for(let i=0; i<10; i++){
         let altura = "1,"+getRndInteger(50,99)+"m";
         let peso = ""+getRndInteger(50,150)+"kg";
-        values.push([faker.name.findName(), faker.internet.email(), faker.phone.phoneNumber(), altura, peso]);
+        values.push([faker.name.findName(), faker.internet.email(), faker.phone.phoneNumber(), altura, peso, getRndDisease(saude)]);
     }
     conn.query(sql, [values], function(error, results, fields){
         if(error) return console.log(error);
@@ -51,4 +54,8 @@ function populateUsers(conn){
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function getRndDisease(saude){
+    return saude[Math.floor(Math.random()*saude.length)];
 }
