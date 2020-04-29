@@ -22,7 +22,7 @@ function execQuery(query, res){
         port: 3336,
         user: 'root',
         password:'faesa123',
-        database:'app_development'
+        database:'c1'
     })
 
     connection.query(query, function(error, results, fields){
@@ -54,13 +54,19 @@ router.delete('/users/:id', (req, res) => {
 router.post('/users', (req, res) => {
     const nome = req.body.nome.substring(0, 200);
     const email = req.body.email.substring(0, 100);
-    execQuery(`INSERT INTO Users (nome, email) VALUES ('${nome})', '${email}');`, res);
+    const phone = req.body.phone.substring(0, 100);
+    const altura = req.body.altura.substring(0, 100);
+    const peso = req.body.peso.substring(0, 100);
+    execQuery(`INSERT INTO Users (nome, email, phone, altura, peso) VALUES ('${nome}', '${email}', '${phone}', '${altura}', '${peso}');`, res);
 });
 
 router.patch('/user/:id', (req, res) => {
     const nome = req.body.nome.substring(0, 200);
     const email = req.body.email.substring(0, 100);
-    execQuery(`UPDATE Users SET nome='${nome}', email='${email}' WHERE id='${req.params.id}';`, res);
+    const phone = req.body.phone.substring(0, 100);
+    const altura = req.body.altura.substring(0, 100);
+    const peso = req.body.peso.substring(0, 100);
+    execQuery(`UPDATE Users SET nome='${nome}', email='${email}', phone='${phone}', altura='${altura}', peso='${peso}', WHERE id='${req.params.id}';`, res);
 });
 
 //Iniciando o servidor
