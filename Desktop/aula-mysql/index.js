@@ -34,21 +34,22 @@ function execQuery(query, res){
     });
 }
 
-//Rotas Users
-router.get('/users', (req, res) => {
-    let filter = '';
-    if(req.params.id) filter = ' WHERE id =' + parseInt(req.params.id);
-    execQuery('SELECT * FROM Users;', res);
-});
+//Rotas Redundante
+// router.get('/users', (req, res) => {
+//     let filter = '';
+//     if(req.params.id) filter = ' WHERE id =' + parseInt(req.params.id);
+//     execQuery('SELECT * FROM Users;', res);
+// });
 
+//O :id? com ? significa que ele é opcional, sem um id ele vai pra /users/ sem nada
 router.get('/users/:id?', (req, res) => {
     let filter = '';
     if(req.params.id) filter = 'WHERE id = ' + parseInt(req.params.id);
-    execQuery('SELECT * FROM Users' + filter, res);
+    execQuery('SELECT * FROM Users ' + filter, res);
 });
 
 router.delete('/users/:id', (req, res) => {
-    execQuery('DELETE FROM Users WHERE id=' +parseInt(req.params.id), res);
+    execQuery('DELETE FROM Users WHERE id= ' +parseInt(req.params.id), res);
 });
 
 router.post('/users', (req, res) => {
